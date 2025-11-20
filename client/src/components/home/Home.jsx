@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import GameCard from "../gamecard/GameCard";
+
 export default function () {
+
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:3030/jsonstore/games")
+            .then(response => response.json())
+            .then(result => {
+                const gameArr = Object.entries(result).map(([_id, game]) => ({
+                    _id,
+                    game
+                }));
+                setGames(gameArr);
+            });
+    }, [])
+
+
     return (
         <section id="welcome-world">
 
@@ -12,31 +31,10 @@ export default function () {
                 <h1>Latest Games</h1>
                 <div id="latest-wrap">
                     <div className="home-container">
-                        <div className="game">
-                            <img src="./images/witcher.png" alt="Elden Ring" />
-                            <div className="details-overlay">
-                                <p className="name">The Witcher 3</p>
-                                <p className="genre">Open World</p>
-                                <button className="details-button">Details</button>
-                            </div>
-                        </div>
-                        <div className="game">
-                            <img src="./images/elden ring.png" alt="Elden Ring" />
-                            <div className="details-overlay">
-                                <p className="name">Elden Ring</p>
-                                <p className="genre">Action RPG</p>
-                                <button className="details-button">Details</button>
-                            </div>
-                        </div>
-                        <div className="game">
-                            <img src="./images/minecraft.png" alt="Minecraft" />
-                            <div className="details-overlay">
-                                <p className="name">Minecraft</p>
-                                <p className="genre">Sandbox</p>
-                                <button className="details-button">Details</button>
-                            </div>
-                            {/* <!-- <p className="no-articles">No games yet</p> --> */}
-                        </div>
+
+                        {games.length ?
+                            games.map(g => <GameCard key={g._id} {...g.game} />)
+                            : <p className="no-articles">No games yet</p>}
                     </div>
                 </div>
             </div>
