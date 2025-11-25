@@ -13,10 +13,9 @@ export default function () {
                     _id,
                     game
                 }));
-                setGames(gameArr);
+                setGames(gameArr.sort((g1, g2) => g2.game._createdOn - g1.game._createdOn).slice(0, 3));
             });
     }, [])
-
 
     return (
         <section id="welcome-world">
