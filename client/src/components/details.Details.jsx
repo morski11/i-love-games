@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function Details() {
-
+    const navigate = useNavigate();
     const [game, setGame] = useState({});
     const { gameId } = useParams();
 
@@ -12,6 +12,22 @@ export default function Details() {
             .then(res => setGame(res));
     }, [gameId])
 
+
+    const deleteHandler = async () => {
+        const confirmed = confirm(`Are you sure you want to delete game: ${game.title}?`);
+
+        if (!confirmed) {
+            return;
+        }
+        try {
+            await fetch(`http://localhost:3030/jsonstore/games/${gameId}`, {
+                method: 'DELETE'
+            });
+            navigate("/catalog");
+        } catch {
+            console.log('Cannot delete game!!');
+        }
+    }
 
     return (
         <section id="game-details">
@@ -50,7 +66,7 @@ export default function Details() {
 
                 <div className="buttons">
                     <a href="#" className="button">Edit</a>
-                    <a href="#" className="button">Delete</a>
+                    <button onClick={deleteHandler} className="button">Delete</button>
                 </div>
 
                 <div className="details-comments">
