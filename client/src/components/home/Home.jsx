@@ -32,7 +32,7 @@ export default function () {
                     <div className="home-container">
 
                         {games.length ?
-                            games.map(g => <GameCard key={g._id} {...g.game} />)
+                            games.map(g => <GameCard key={g._id} {...g.game} gameId={g._id}/>)
                             : <p className="no-articles">No games yet</p>}
                     </div>
                 </div>

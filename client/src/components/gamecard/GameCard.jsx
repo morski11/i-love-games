@@ -1,7 +1,10 @@
-export default function({
+import { Link } from 'react-router'
+
+export default function ({
     title,
     genre,
     imageUrl,
+    gameId
 }) {
     return (
         <div className="game">
@@ -9,7 +12,7 @@ export default function({
             <div className="details-overlay">
                 <p className="name">{title}</p>
                 <p className="genre">{genre}</p>
-                <button className="details-button">Details</button>
+                <Link to={`/details/${gameId}`} className="details-button">Details</Link>
             </div>
         </div>
     );
