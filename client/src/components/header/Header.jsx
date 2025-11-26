@@ -7,7 +7,7 @@ export default function Header() {
                 <Link className="home" to="/"> <img src="./images/logo.png" alt="logo" /> </Link>
                 <Link to="/catalog">Catalog</Link>
                 <div id="user">
-                    <Link to="#">Add Game</Link>
+                    <Link to="/create">Add Game</Link>
                     <Link to="#">Logout</Link>
                 </div>
 
